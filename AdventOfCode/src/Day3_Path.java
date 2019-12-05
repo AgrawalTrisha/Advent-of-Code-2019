@@ -50,8 +50,27 @@ public class Day3_Path {
     }
 
     public void print() {
-        for(int i = 0; i < coordinates.size(); i++) {
-            System.out.println(coordinates.get(i).toString());
+        for (Day3_Coordinate coordinate : coordinates) {
+            System.out.println(coordinate.toString());
         }
+    }
+
+    public int shortestSteps(Day3_Path path, ArrayList<Day3_Coordinate> intersections) {
+        int minimum = Integer.MAX_VALUE;
+        for (Day3_Coordinate intersection : intersections) {
+            int steps = 0;
+            int counter = 0;
+            while (!intersection.equals(coordinates.get(counter))) {
+                steps++;
+                counter++;
+            }
+            counter = 0;
+            while (!intersection.equals(path.coordinates.get(counter))) {
+                steps++;counter++;
+            }
+            if (steps < minimum)
+                minimum = steps;
+        }
+        return minimum;
     }
 }
