@@ -40,5 +40,11 @@ public class Runner {
         // d3p2
         System.out.println("Day 3, Problem 2: " + wire1.shortestSteps(wire2, intersections));
 
+        // d4p1
+        System.out.println(AdventOfCode.d4p1("284639-748759"));
+
+        // d4p2
+        System.out.println(AdventOfCode.d4p2("284639-748759"));
+
     }
 }

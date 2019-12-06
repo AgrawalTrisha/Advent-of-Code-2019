@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class AdventOfCode {
     // Day 1
     // Problem 1
@@ -43,5 +45,73 @@ public class AdventOfCode {
             }
         }
         return -1;
+    }
+
+    // Day 4
+    public static int d4p1(String range) {
+        String[] rangeArray = range.split("-");
+        int count = 0;
+        for(int currentNum = Integer.parseInt(rangeArray[0]); currentNum < Integer.parseInt(rangeArray[1]); currentNum++) {
+            if(isValid(currentNum)){
+                count++;
+            }
+        }
+        return count;
+    }
+    // problem 1 helper method
+    public static boolean isValid(int num) {
+        ArrayList<Integer> digitList = new ArrayList<>();
+        while(num > 0) {
+            int digit = num % 10;
+            digitList.add(0,digit);
+            num /= 10;
+        }
+        boolean isIncreasing = true;
+        boolean hasPair = false;
+        for(int i = 0; i < digitList.size() - 1; i++) {
+            if(digitList.get(i) > digitList.get(i+1)) {
+                isIncreasing = false;
+            }
+            if(digitList.get(i) == digitList.get(i+1)) {
+                hasPair = true;
+            }
+        }
+        return isIncreasing && hasPair;
+    }
+
+    public static int d4p2(String range) {
+        String[] rangeArray = range.split("-");
+        ArrayList<Integer> possiblePasswords = new ArrayList<>();
+        for(int currentNum = Integer.parseInt(rangeArray[0]); currentNum <= Integer.parseInt(rangeArray[1]); currentNum++) {
+            if(isValid(currentNum)){
+                possiblePasswords.add(currentNum);
+            }
+        }
+        int count = 0;
+        for(Integer pw : possiblePasswords) {
+            if(isValid2(pw))
+                count++;
+        }
+        return count;
+    }
+    // problem 2 helper method
+    public static boolean isValid2(int num) {
+        ArrayList<Integer> digitList = new ArrayList<>();
+        while(num > 0) {
+            int digit = num % 10;
+            digitList.add(0,digit);
+            num /= 10;
+        }
+        boolean hasPair = false;
+        for(int i = 0; i < 5 && !hasPair; i++) {
+            if(i == 0) {
+                hasPair = (digitList.get(i) == digitList.get(i+1) && digitList.get(i+1) != digitList.get(i+2));
+            } else if(i == 4) {
+                hasPair = (digitList.get(i-1) != digitList.get(i) && digitList.get(i) == digitList.get(i+1));
+            } else {
+                hasPair = (digitList.get(i - 1) != digitList.get(i) && digitList.get(i) == digitList.get(i+1) && digitList.get(i+1) != digitList.get(i+2));
+            }
+        }
+        return hasPair;
     }
 }
